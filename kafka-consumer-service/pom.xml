@@ -12,7 +12,7 @@
 	<artifactId>kafka-consumer-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>kafka-consumer-service</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Spring Boot for eBanking</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
