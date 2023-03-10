@@ -1,5 +1,5 @@
 
-package com.kafkaconsumerservice;
+package com.kafkaconsumerservice.config;
 
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
