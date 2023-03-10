@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@OpenAPIDefinition(info = @Info(title = "Product APU", version = "2.0", description = "Product Microservice"))
+@OpenAPIDefinition
 public class KafkaConsumerServiceApplication {
 
 	public static void main(String[] args) {
