@@ -38,4 +38,7 @@ public class SecurityConfig {
                 .httpBasic(withDefaults())
                 .build();
     }
+
+    @Bean
+    JwtDecoder
 }
