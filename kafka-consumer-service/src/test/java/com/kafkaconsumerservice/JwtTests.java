@@ -27,7 +27,7 @@ public class JwtTests {
     public void testJwt(){
         JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256("!QS*#DA")).build();
 
-        DecodedJWT verify = jwtVerifier.verify("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2Nzg3MzEyMzQsInVzZXJJZCI6MjEsInVzZXJuYW1lIjoiZWRkaWUifQ.adCiVo9AePdh07PIpfGRj6BmbiIckBlHkRDsbxqu3OM");
+        DecodedJWT verify = jwtVerifier.verify("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2Nzg5MDY4MTMsInVzZXJJZCI6MjEsInVzZXJuYW1lIjoiZWRkaWUifQ._6_arTN2l2fCUN2L11IZq7uLHCJGqlMKU0J_FMzOOh8");
 
         System.out.println(verify.getClaim("userId").asInt());
         System.out.println(verify.getClaim("username").asString());

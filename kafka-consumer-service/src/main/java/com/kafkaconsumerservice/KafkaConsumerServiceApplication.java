@@ -12,9 +12,10 @@ import org.springframework.security.web.context.support.SecurityWebApplicationCo
 public class KafkaConsumerServiceApplication {
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext run = SpringApplication.run(SecurityWebApplicationContextUtils.class, args);
+//		ConfigurableApplicationContext run = SpringApplication.run(SecurityWebApplicationContextUtils.class, args);
+		SpringApplication.run(KafkaConsumerServiceApplication.class, args);
 		System.out.println(111);
-//		SpringApplication.run(KafkaConsumerServiceApplication.class, args);
+
 	}
 
 }
