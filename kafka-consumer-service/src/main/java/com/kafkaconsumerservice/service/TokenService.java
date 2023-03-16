@@ -1,14 +1,22 @@
 package com.kafkaconsumerservice.service;
 
+import org.springframework.security.core.*;
+import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
-@Service
-public class JwtService {
-    private final JwtEncoder jwtEncoder;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.stream.Collectors;
 
-    public JwtService(JwtEncoder jwtEncoder) {
-        this.jwtEncoder = jwtEncoder;
+
+@Service
+public class TokenService {
+    private final JwtEncoder encoder;
+
+    public TokenService(JwtEncoder encoder) {
+        this.encoder = encoder;
     }
 
     public String generateToken(Authentication authentication) {
