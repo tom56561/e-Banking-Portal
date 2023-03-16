@@ -14,7 +14,20 @@ import java.security.Principal;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+    private static final Logger LOG = LoggerFactory.getLogger(AuthController.class);
+    private final TokenService tokenService;
 
+    public AuthController(TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
+
+    @PostMapping("/token")
+    public String token(Authentication authentication){
+        LOG.debug("Token requested for user: '{}'", authentication.getName());
+        String token = tokenService.generateToken(authentication);
+        LOG.debug("Token granded {}", token);
+        return token;
+    }
     @GetMapping
     public String home(Principal principal){
         return "Hello, " + principal.getName();
