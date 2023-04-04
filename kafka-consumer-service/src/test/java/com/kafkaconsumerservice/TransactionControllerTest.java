@@ -1,7 +1,7 @@
 package com.kafkaconsumerservice;
 
 import com.kafkaconsumerservice.config.SecurityConfig;
-import com.kafkaconsumerservice.controller.AccountController;
+import com.kafkaconsumerservice.controller.TransactionController;
 import com.kafkaconsumerservice.controller.AuthController;
 import com.kafkaconsumerservice.service.TokenService;
 import org.junit.jupiter.api.Test;
@@ -18,9 +18,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest({AccountController.class, AuthController.class})
+@WebMvcTest({TransactionController.class, AuthController.class})
 @Import({SecurityConfig.class, TokenService.class})
-public class AccountControllerTest {
+public class TransactionControllerTest {
     @Autowired
     MockMvc mvc;
 

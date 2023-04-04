@@ -2,7 +2,6 @@
 
 For an e-Banking Portal you have been given the task to design and implement a reusable **REST API** for returning the paginated list of money account transactions created in an arbitrary calendar month for a given customer who is logged-on in the portal. For each transaction ‘page’ return the total credit and debit values at the current exchange rate (from the third-party provider). The list of transactions should be consumed from a Kafka topic. Build a Docker image out of the application and prepare the configuration for deploying it to Kubernetes / OpenShift.
 
-
 #  Assumptions
 
 -   Every e-banking client has one or more accounts in different currencies (e.g. GBP, EUR, CHF)
@@ -21,3 +20,37 @@ For simplicity reasons, consider a money account transaction composed of the fol
 # Diagram
 ### Jwt + Java Scurity
 ![Jwt Security Diagram](./png/jwtSecurity.png)
+
+
+# Authorization
+#### 1. Get the JWT token
+Using postman:
+```bash
+POST http://localhost:8080/auth/token
+
+Basic Auth
+Username:eddie
+Password:1234
+```
+
+Using httpie:
+```bash
+http POST :8080/token --auth eddue:1234 -v
+```
+#### 2. Get request with Bearer Token
+
+
+Using postman:
+
+```bash
+GET http://localhost:8080/xxx
+
+Bearer Token
+Token: eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiZWRkaWUiLCJleHAiOjE2ODA2Mzc0OTAsImlhdCI6MTY4MDYzMzg5MCwic2NvcGUiOiJyZWFkIn0.f1SgPrAZg3xiqRNXAOCnh2FkOQbPz93AYEtgtmNh-eBM3O2UBIzkan8AWWV2wQv2-DUXGfFad2Ud9WQorVGBskUvANptCdwP3ZXC6YHiQD6piQvEed4iqI9WkiQvDBzmgJNMFqp6VDZ7wgX9sXvGZ-vzVfIN7ySKpWQOWIFHPnQSxu_n2AY7OrM-ds1lg1i4ZRSEOoI1XhClS4TEyGmJuDdz99UJRUuc0SA_yhzDyuzPz5zXeRnxqcSQpzHZ86Mo0EPupgtTta5a4noE3bqx4yhZmUVBeQ75cUY5ZeAxj2sk7zBr4sCfWQ1FnWLZ_oM-oZLj0ThQgvJvONWjMVePQg
+```
+
+Using httpie:
+
+```bash
+http :8080 'Authorization: Bearer JWT_TOKEN_HERE'
+```

@@ -2,27 +2,55 @@ package com.kafkaconsumerservice.service;
 
 import com.kafkaconsumerservice.model.PagedResponse;
 import com.kafkaconsumerservice.model.Transaction;
-import com.kafkaconsumerservice.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
+@Service
 public class TransactionService {
     @Autowired
-    private TransactionRepository transactionRepository;
+    private TransactionKafkaConsumer transactionKafkaConsumer;
     @Autowired
     private ExchangeRateService exchangeRateService;
 
+    public TransactionService(TransactionKafkaConsumer transactionKafkaConsumer, ExchangeRateService exchangeRateService) {
+        this.transactionKafkaConsumer = transactionKafkaConsumer;
+        this.exchangeRateService = exchangeRateService;
+    }
+
     public PagedResponse<Transaction> getTransactions(String customerId, int month, int year, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Transaction> transactions = transactionRepository.findByCustomerIdAndMonthAndYear(customerId, month, year, pageable);
+        List<Transaction> transactions = transactionKafkaConsumer.getTransactions(customerId);
+
+        // Filter transactions by month and year
+        transactions = transactions.stream()
+                .filter(transaction -> {
+                    LocalDate date = transaction.getValueDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    return date.getMonthValue() == month && date.getYear() == year;
+                })
+                .collect(Collectors.toList());
+
+        // Sort transactions by date (descending)
+        transactions.sort(Comparator.comparing(Transaction::getValueDate).reversed());
+
+        // Apply pagination
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), transactions.size());
+        Page<Transaction> transactionPage = new PageImpl<>(transactions.subList(start, end), pageable, transactions.size());
 
         BigDecimal totalCredit = BigDecimal.ZERO;
         BigDecimal totalDebit = BigDecimal.ZERO;
-        for (Transaction transaction : transactions.getContent()) {
+        for (Transaction transaction : transactionPage.getContent()) {
             BigDecimal convertedAmount = exchangeRateService.convert(transaction.getAmount(), transaction.getAmountCurrency(), "USD");
             if (convertedAmount.compareTo(BigDecimal.ZERO) > 0) {
                 totalCredit = totalCredit.add(convertedAmount);
@@ -32,18 +60,15 @@ public class TransactionService {
         }
 
         PagedResponse<Transaction> response = new PagedResponse<>();
-        response.setContent(transactions.getContent());
-        response.setPage(transactions.getNumber());
-        response.setSize(transactions.getSize());
-        response.setTotalPages(transactions.getTotalPages());
-        response.setTotalElements(transactions.getTotalElements());
+        response.setContent(transactionPage.getContent());
+        response.setPage(transactionPage.getNumber());
+        response.setSize(transactionPage.getSize());
+        response.setTotalPages(transactionPage.getTotalPages());
+        response.setTotalElements(transactionPage.getTotalElements());
         response.setTotalCredit(totalCredit);
         response.setTotalDebit(totalDebit);
 
         return response;
     }
 
-    public void saveTransaction(Transaction transaction) {
-        transactionRepository.save(transaction);
-    }
 }

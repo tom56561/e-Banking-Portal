@@ -1,16 +1,17 @@
 package com.kafkaconsumerservice.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class Transaction {
     private String id;
     private BigDecimal amount;
     private String amountCurrency;
     private String accountIban;
-    private String valueDate;
+    private Date valueDate;
     private String description;
 
-    public Transaction(String id, BigDecimal amount, String amountCurrency, String accountIban, String valueDate, String description) {
+    public Transaction(String id, BigDecimal amount, String amountCurrency, String accountIban, Date valueDate, String description) {
         this.id = id;
         this.amount = amount;
         this.amountCurrency = amountCurrency;
@@ -35,7 +36,7 @@ public class Transaction {
         return accountIban;
     }
 
-    public String getValueDate() {
+    public Date getValueDate() {
         return valueDate;
     }
 

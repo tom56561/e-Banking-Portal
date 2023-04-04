@@ -14,6 +14,10 @@ public class TransactionProducer {
 
     private static final String TOPIC_NAME = "transactions";
 
+    public TransactionProducer(KafkaTemplate<String, String> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
+
     public void sendTransaction(Transaction transaction) {
         String key = transaction.getId();
         String value = toJson(transaction);
