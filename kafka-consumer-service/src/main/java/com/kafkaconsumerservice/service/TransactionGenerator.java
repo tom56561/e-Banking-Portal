@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Service
@@ -16,19 +15,23 @@ public class TransactionGenerator {
     @Autowired
     private TransactionProducer transactionProducer;
 
+    public TransactionGenerator(TransactionProducer transactionProducer) {
+        this.transactionProducer = transactionProducer;
+    }
+
     public void generateTransactions() throws ParseException {
 
-        String dateString1 = "08-07-2022";
-        String dateString2 = "08-07-2022";
+        String dateString1 = "01-03-2023";
+        String dateString2 = "02-03-2023";
 
-        DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date date1 = dateFormat.parse(dateString1);
         Date date2 = dateFormat.parse(dateString2);
 
 
         Transaction transaction1 = new Transaction(
-                "3c04fcce-65fa-4115-9441-2781f6706ca7",
-                BigDecimal.valueOf(85),
+                "89d3o179-blbc-465b-o9ee-e2d5f6ofEld46",
+                BigDecimal.valueOf(150),
                 "CHF",
                 "CH93-0000-0000-0000-0000-0",
                 date1,
@@ -37,15 +40,14 @@ public class TransactionGenerator {
         transactionProducer.sendTransaction(transaction1);
 
         Transaction transaction2 = new Transaction(
-                "cddfd78d-5ace-4b52-be73-aac571397f7a",
+                "92d43cde-4s2o-5123-1521-523lsd018",
                 BigDecimal.valueOf(100),
-                "GBP",
+                "USD",
                 "CH93-0000-0000-0000-0000-0",
                 date2,
-                "Online payment GBP"
+                "Online payment USD"
         );
         transactionProducer.sendTransaction(transaction2);
 
-        // Add more transactions as needed
     }
 }

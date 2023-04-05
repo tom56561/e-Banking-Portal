@@ -1,5 +1,8 @@
 package com.kafkaconsumerservice.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -11,7 +14,15 @@ public class Transaction {
     private Date valueDate;
     private String description;
 
-    public Transaction(String id, BigDecimal amount, String amountCurrency, String accountIban, Date valueDate, String description) {
+    @JsonCreator
+    public Transaction(
+            @JsonProperty("id") String id,
+            @JsonProperty("amount") BigDecimal amount,
+            @JsonProperty("amountCurrency") String amountCurrency,
+            @JsonProperty("accountIban") String accountIban,
+            @JsonProperty("valueDate") Date valueDate,
+            @JsonProperty("description") String description
+    ) {
         this.id = id;
         this.amount = amount;
         this.amountCurrency = amountCurrency;

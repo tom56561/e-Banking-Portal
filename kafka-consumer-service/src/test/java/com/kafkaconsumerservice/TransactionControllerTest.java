@@ -26,7 +26,7 @@ public class TransactionControllerTest {
 
     @Test
     void rootWhenUnauthenticatedThen401() throws Exception {
-        this.mvc.perform(get("/"))
+        this.mvc.perform(get("/api/transactions/"))
                 .andExpect(status().isUnauthorized());
     }
 
@@ -39,7 +39,7 @@ public class TransactionControllerTest {
 
         String token = result.getResponse().getContentAsString();
 
-        this.mvc.perform(get("/")
+        this.mvc.perform(get("/api/transactions/")
                         .header("Authorization", "Bearer " + token))
                 .andExpect(content().string("Hello, eddie"));
     }
@@ -47,6 +47,6 @@ public class TransactionControllerTest {
     @Test
     @WithMockUser
     public void rootWithMockUserStatusIsOK() throws Exception {
-        this.mvc.perform(get("/")).andExpect(status().isOk());
+        this.mvc.perform(get("/api/transactions/")).andExpect(status().isOk());
     }
 }
