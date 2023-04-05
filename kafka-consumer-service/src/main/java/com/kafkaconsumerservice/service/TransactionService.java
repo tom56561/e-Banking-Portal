@@ -28,9 +28,9 @@ public class TransactionService {
         this.exchangeRateService = exchangeRateService;
     }
 
-    public PagedResponse<Transaction> getTransactions(String customerId, int month, int year, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        List<Transaction> transactions = transactionKafkaConsumer.getTransactions(customerId);
+    public PagedResponse<Transaction> getTransactions(String identityKey, int month, int year, int size) {
+        Pageable pageable = PageRequest.of(0,size);
+        List<Transaction> transactions = transactionKafkaConsumer.getTransactions(identityKey);
 
         // Filter transactions by month and year
         transactions = transactions.stream()

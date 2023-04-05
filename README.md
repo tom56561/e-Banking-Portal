@@ -22,7 +22,7 @@ For simplicity reasons, consider a money account transaction composed of the fol
 ![Jwt Security Diagram](./png/jwtSecurity.png)
 
 
-# Authorization
+# API + JWT
 #### 1. Get the JWT token
 Using postman:
 ```bash
@@ -37,20 +37,46 @@ Using httpie:
 ```bash
 http POST :8080/token --auth eddue:1234 -v
 ```
-#### 2. Get request with Bearer Token
-
-
-Using postman:
+#### 2. Test Get Request with Bearer Token
 
 ```bash
-GET http://localhost:8080/xxx
+GET http://localhost:8080/api/transactions/
 
 Bearer Token
 Token: eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiZWRkaWUiLCJleHAiOjE2ODA2Mzc0OTAsImlhdCI6MTY4MDYzMzg5MCwic2NvcGUiOiJyZWFkIn0.f1SgPrAZg3xiqRNXAOCnh2FkOQbPz93AYEtgtmNh-eBM3O2UBIzkan8AWWV2wQv2-DUXGfFad2Ud9WQorVGBskUvANptCdwP3ZXC6YHiQD6piQvEed4iqI9WkiQvDBzmgJNMFqp6VDZ7wgX9sXvGZ-vzVfIN7ySKpWQOWIFHPnQSxu_n2AY7OrM-ds1lg1i4ZRSEOoI1XhClS4TEyGmJuDdz99UJRUuc0SA_yhzDyuzPz5zXeRnxqcSQpzHZ86Mo0EPupgtTta5a4noE3bqx4yhZmUVBeQ75cUY5ZeAxj2sk7zBr4sCfWQ1FnWLZ_oM-oZLj0ThQgvJvONWjMVePQg
 ```
-
-Using httpie:
+#### 3. Post Request with Bearer Token to Mock data by using Kafka producer.
 
 ```bash
-http :8080 'Authorization: Bearer JWT_TOKEN_HERE'
+Post http://localhost:8080/api/transactions/mock
+
+Bearer Token
+Token: ENTER_JWT_TOKEN
+```
+
+Mock data format be like this:
+```bash
+"key": "P-0123456789",
+"value": {
+   "identityKey": "P-0123456789",
+   "uniqueIdentifier": "89d3o179-blbc-465b-o9ee-e2d5f6ofEld46",
+   "amount": "150",
+   "currency": "CHF",
+   "ibanAccount": "CH93-0000-0000-0000-0000-0",
+   "valueDate": "01-03-2023",
+   "description": "Online payment CHF"
+        }
+
+"key": "P-0123456789",
+"value": {
+   "identityKey": "P-0123456789",
+   "uniqueIdentifier": "92d43cde-4s2o-5123-1521-523lsd018",
+   "amount": "100",
+   "currency": "USD",
+   "ibanAccount": "CH93-0000-0000-0000-0000-0",
+   "valueDate": "02-03-2023",
+   "description": "Online payment USD"
+        }
+......
+
 ```

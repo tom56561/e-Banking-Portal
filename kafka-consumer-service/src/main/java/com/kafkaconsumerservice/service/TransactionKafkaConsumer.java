@@ -32,11 +32,11 @@ public class TransactionKafkaConsumer {
     }
 
     private void saveTransaction(Transaction transaction) {
-        String customerId = transaction.getId();
-        transactions.computeIfAbsent(customerId, k -> new CopyOnWriteArrayList<>()).add(transaction);
+        String identityKey = transaction.getIdentityKey();
+        transactions.computeIfAbsent(identityKey, k -> new CopyOnWriteArrayList<>()).add(transaction);
     }
 
-    public List<Transaction> getTransactions(String customerId) {
-        return transactions.getOrDefault(customerId, new CopyOnWriteArrayList<>());
+    public List<Transaction> getTransactions(String identityKey) {
+        return transactions.getOrDefault(identityKey, new CopyOnWriteArrayList<>());
     }
 }

@@ -6,6 +6,8 @@ import com.kafkaconsumerservice.service.TransactionGenerator;
 import com.kafkaconsumerservice.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -36,15 +38,15 @@ public class TransactionController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("")
+    @GetMapping("/{month}/{year}")
     public ResponseEntity<PagedResponse<Transaction>> getTransactions(
-            @RequestParam(value = "customerId") String customerId,
-            @RequestParam(value = "month") int month,
-            @RequestParam(value = "year") int year,
-            @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size) {
+            Authentication authentication,
+            @PathVariable(value = "month") int month,
+            @PathVariable(value = "year") int year) {
 
-        PagedResponse<Transaction> transactions = transactionService.getTransactions(customerId, month, year, page, size);
+        String identityKey = ((JwtAuthenticationToken) authentication).getToken().getClaim("identity_key");
+
+        PagedResponse<Transaction> transactions = transactionService.getTransactions(identityKey, month, year, 5);
         return ResponseEntity.ok(transactions);
     }
 

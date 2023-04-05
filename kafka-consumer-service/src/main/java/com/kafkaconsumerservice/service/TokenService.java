@@ -1,5 +1,6 @@
 package com.kafkaconsumerservice.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.*;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
@@ -14,9 +15,11 @@ import java.util.stream.Collectors;
 @Service
 public class TokenService {
     private final JwtEncoder encoder;
+    private String identityKey;
 
-    public TokenService(JwtEncoder encoder) {
+    public TokenService(JwtEncoder encoder, @Value(value = "${jwt.secret.key}") String identityKey) {
         this.encoder = encoder;
+        this.identityKey = identityKey;
     }
 
     public String generateToken(Authentication authentication) {
@@ -25,8 +28,6 @@ public class TokenService {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(" "));
 
-        // Add the user's unique identity key
-        String userKey = "P-0123456789";
 
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
@@ -34,9 +35,11 @@ public class TokenService {
                 .expiresAt(now.plus(1, ChronoUnit.HOURS))
                 .subject(authentication.getName())
                 .claim("scope", scope)
-                .claim("user_key", userKey)
+                .claim("identity_key", identityKey)   // Add the user's unique identity key
                 .build();
         return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
+
+
 
 }

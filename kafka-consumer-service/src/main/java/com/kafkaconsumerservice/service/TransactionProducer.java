@@ -19,7 +19,7 @@ public class TransactionProducer {
     }
 
     public void sendTransaction(Transaction transaction) {
-        String key = transaction.getId();
+        String key = transaction.getIdentityKey();
         String value = toJson(transaction);
         kafkaTemplate.send(TOPIC_NAME, key, value);
     }

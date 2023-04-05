@@ -7,7 +7,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Transaction {
-    private String id;
+    private String identityKey;
+    private String uniqueIdentifier;
     private BigDecimal amount;
     private String amountCurrency;
     private String accountIban;
@@ -16,14 +17,16 @@ public class Transaction {
 
     @JsonCreator
     public Transaction(
-            @JsonProperty("id") String id,
+            @JsonProperty("identityKey") String identityKey,
+            @JsonProperty("uniqueIdentifier") String uniqueIdentifier,
             @JsonProperty("amount") BigDecimal amount,
             @JsonProperty("amountCurrency") String amountCurrency,
             @JsonProperty("accountIban") String accountIban,
             @JsonProperty("valueDate") Date valueDate,
             @JsonProperty("description") String description
     ) {
-        this.id = id;
+        this.identityKey = identityKey;
+        this.uniqueIdentifier = uniqueIdentifier;
         this.amount = amount;
         this.amountCurrency = amountCurrency;
         this.accountIban = accountIban;
@@ -31,8 +34,12 @@ public class Transaction {
         this.description = description;
     }
 
-    public String getId() {
-        return id;
+    public String getIdentityKey() {
+        return identityKey;
+    }
+
+    public String getUniqueIdentifier() {
+        return uniqueIdentifier;
     }
 
     public BigDecimal getAmount() {
