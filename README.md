@@ -22,7 +22,28 @@ For simplicity reasons, consider a money account transaction composed of the fol
 ![Jwt Security Diagram](./png/jwtSecurity.png)
 
 
-# API + JWT
+# API
+Access Swagger API Document
+```bash
+http://localhost:8080/swagger-ui/index.html#/
+```
+![API](./png/api)
+
+
+# Set Up
+Docker-compose using [zk-single-kafka-single.yml](https://github.com/conduktor/kafka-stack-docker-compose/blob/master/zk-single-kafka-single.yml) 
+```bash
+docker-compose up
+```
+Docker Container
+```bash
+CONTAINER ID   IMAGE                             COMMAND                  CREATED      STATUS       PORTS                                                                      NAMES
+33a759dc7229   confluentinc/cp-kafka:7.3.2       "/etc/confluent/dock…"   6 days ago   Up 3 hours   0.0.0.0:9092->9092/tcp, 0.0.0.0:9999->9999/tcp, 0.0.0.0:29092->29092/tcp   kafka1
+8ab0691e89ae   confluentinc/cp-zookeeper:7.3.2   "/etc/confluent/dock…"   6 days ago   Up 3 hours   2888/tcp, 0.0.0.0:2181->2181/tcp, 3888/tcp                                 zoo1
+```
+
+# Test
+
 #### 1. Get the JWT token
 Using postman:
 ```bash
@@ -53,6 +74,7 @@ Post http://localhost:8080/api/transactions/mock
 Bearer Token
 Token: ENTER_JWT_TOKEN
 ```
+
 User:
 
 | UserName      | Password      | Identity Key| Account Iban |
