@@ -12,6 +12,16 @@ public class PagedResponse<T> {
     private BigDecimal totalCredit;
     private BigDecimal totalDebit;
 
+    public PagedResponse(List<T> content, int page, int size, long totalElements, int totalPages, BigDecimal totalCredit, BigDecimal totalDebit) {
+        this.content = content;
+        this.page = page;
+        this.size = size;
+        this.totalPages = totalPages;
+        this.totalElements = totalElements;
+        this.totalCredit = totalCredit;
+        this.totalDebit = totalDebit;
+    }
+
     public BigDecimal getTotalCredit() {
         return totalCredit;
     }

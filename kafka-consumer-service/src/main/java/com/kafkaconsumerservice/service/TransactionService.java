@@ -59,14 +59,7 @@ public class TransactionService {
             }
         }
 
-        PagedResponse<Transaction> response = new PagedResponse<>();
-        response.setContent(transactionPage.getContent());
-        response.setPage(transactionPage.getNumber());
-        response.setSize(transactionPage.getSize());
-        response.setTotalPages(transactionPage.getTotalPages());
-        response.setTotalElements(transactionPage.getTotalElements());
-        response.setTotalCredit(totalCredit);
-        response.setTotalDebit(totalDebit);
+        PagedResponse<Transaction> response = new PagedResponse<>(transactionPage.getContent(), transactionPage.getNumber(), transactionPage.getSize(), transactionPage.getTotalElements(), transactionPage.getTotalPages(), totalCredit, totalDebit);
 
         return response;
     }

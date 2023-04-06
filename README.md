@@ -53,7 +53,6 @@ Post http://localhost:8080/api/transactions/mock
 Bearer Token
 Token: ENTER_JWT_TOKEN
 ```
-
 User:
 
 | UserName      | Password      | Identity Key| Account Iban |

@@ -49,7 +49,5 @@ public class TransactionController {
         PagedResponse<Transaction> transactions = transactionService.getTransactions(identityKey, month, year, 5);
         return ResponseEntity.ok(transactions);
     }
-
-
 }
 

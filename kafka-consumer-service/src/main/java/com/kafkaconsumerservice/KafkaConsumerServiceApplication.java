@@ -16,9 +16,8 @@ import org.springframework.security.web.context.support.SecurityWebApplicationCo
 public class KafkaConsumerServiceApplication {
 
 	public static void main(String[] args) {
-//		ConfigurableApplicationContext run = SpringApplication.run(SecurityWebApplicationContextUtils.class, args);
 		SpringApplication.run(KafkaConsumerServiceApplication.class, args);
-		System.out.println(11111111);
+		System.out.println("Success");
 
 	}
 
