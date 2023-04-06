@@ -125,36 +125,36 @@ public class TransactionGenerator {
                 "Online payment JPY"
         );
         Transaction transaction9 = new Transaction(
-                "P-1123456777",
+                "P-1111111111",
                 "72e3q890-kb7s-811z-a2cc-b2k4t8klRfh45",
                 BigDecimal.valueOf(20),
                 "JPY",
-                "CH93-0000-0000-0000-0000-0",
+                "CH93-0000-0000-0000-0000-1",
                 date9,
                 "Online payment JPY"
         );
         Transaction transaction10 = new Transaction(
-                "P-1123456777",
+                "P-1111111111",
                 "41b4c072-fm8n-029x-r4dd-f4s7e1heTwp92",
                 BigDecimal.valueOf(50),
                 "JPY",
-                "CH93-0000-0000-0000-0000-0",
+                "CH93-0000-0000-0000-0000-1",
                 date10,
                 "Online payment JPY"
         );
         Transaction transaction11 = new Transaction(
-                "P-1123456777",
+                "P-1111111111",
                 "27t8p661-ks1m-627c-t5bb-g6r2f1joYqh88",
                 BigDecimal.valueOf(50),
                 "JPY",
-                "CH93-0000-0000-0000-0000-0",
+                "CH93-0000-0000-0000-0000-1",
                 date11,
                 "Online payment JPY"
         );
         Transaction transaction12 = new Transaction(
                 "P-0123456789",
                 "65r2f579-ms0n-183g-s9bb-j1h9g6elNfd29",
-                BigDecimal.valueOf(60),
+                BigDecimal.valueOf(-60),
                 "USD",
                 "CH93-0000-0000-0000-0000-0",
                 date12,

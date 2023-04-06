@@ -54,7 +54,15 @@ Bearer Token
 Token: ENTER_JWT_TOKEN
 ```
 
+User:
+
+| UserName      | Password      | Identity Key| Account Iban |
+| ------------- |:-------------:| :--------:  | :--------:   |
+| eddie         | 1234          | P-0123456789| CH93-0000-0000-0000-0000-0 |
+| tyler         | 4321          | P-1111111111| CH93-0000-0000-0000-0000-1 |
+
 Mock data format be like this:
+
 ```bash
 "key": "P-0123456789",
 "value": {

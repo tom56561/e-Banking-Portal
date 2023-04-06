@@ -7,6 +7,7 @@ public class PagedResponse<T> {
     private List<T> content;
     private int page;
     private int size;
+    private int totalPages;
     private long totalElements;
     private BigDecimal totalCredit;
     private BigDecimal totalDebit;
@@ -67,6 +68,6 @@ public class PagedResponse<T> {
         this.totalPages = totalPages;
     }
 
-    private int totalPages;
+
 
 }
