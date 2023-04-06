@@ -27,7 +27,7 @@ Access Swagger API Document
 ```bash
 http://localhost:8080/swagger-ui/index.html#/
 ```
-![API](./png/api)
+![API](./png/api.png)
 
 
 # Set Up
