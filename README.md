@@ -1,6 +1,14 @@
-# Summary
 
-For an e-Banking Portal you have been given the task to design and implement a reusable **REST API** for returning the paginated list of money account transactions created in an arbitrary calendar month for a given customer who is logged-on in the portal. For each transaction ‘page’ return the total credit and debit values at the current exchange rate (from the third-party provider). The list of transactions should be consumed from a Kafka topic. Build a Docker image out of the application and prepare the configuration for deploying it to Kubernetes / OpenShift.
+This e-Banking Portal provides a reusable ***REST API*** for returning the paginated list of money account transactions created in an arbitrary calendar month for a given customer who is logged-on in the portal. For each transaction 'page', it returns the total credit and debit values at the current exchange rate (from a third-party provider). The list of transactions is consumed from a Kafka topic. This project includes a Docker image of the application and the configuration for deploying it to Kubernetes / OpenShift.
+
+# Features
+
+- Paginated list of transactions for a specific customer and calendar month
+- Total credit and debit values at the current exchange rate
+- Consumption of transaction data from a Kafka topic
+- JWT authentication and Java Security
+- Docker containerization
+- Kubernetes/OpenShift deployment configuration
 
 #  Assumptions
 
@@ -17,13 +25,20 @@ For simplicity reasons, consider a money account transaction composed of the fol
 -   Value date (e.g. 01-10-2020)
 -   Description (e.g. Online payment CHF)
 
+
+
 # Diagram
 ### Jwt + Java Scurity
 ![Jwt Security Diagram](./png/jwtSecurity.png)
 
+### Component Diagram
+![Component Diagram](./png/Component%20Diagram.png)
+
 
 # API
-Access Swagger API Document
+### Access the Swagger API documentation
+Navigate to the Swagger API documentation page:
+
 ```bash
 http://localhost:8080/swagger-ui/index.html#/
 ```
@@ -44,7 +59,7 @@ CONTAINER ID   IMAGE                             COMMAND                  CREATE
 
 # Test
 
-#### 1. Get the JWT token
+#### 1. Authenticate and obtain a JWT token
 Using postman:
 ```bash
 POST http://localhost:8080/auth/token
@@ -58,24 +73,33 @@ Using httpie:
 ```bash
 http POST :8080/token --auth eddue:1234 -v
 ```
-#### 2. Test Get Request with Bearer Token
+#### 2. Test GET Request with Bearer Token
 
 ```bash
 GET http://localhost:8080/api/transactions/
 
 Bearer Token
-Token: eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiZWRkaWUiLCJleHAiOjE2ODA2Mzc0OTAsImlhdCI6MTY4MDYzMzg5MCwic2NvcGUiOiJyZWFkIn0.f1SgPrAZg3xiqRNXAOCnh2FkOQbPz93AYEtgtmNh-eBM3O2UBIzkan8AWWV2wQv2-DUXGfFad2Ud9WQorVGBskUvANptCdwP3ZXC6YHiQD6piQvEed4iqI9WkiQvDBzmgJNMFqp6VDZ7wgX9sXvGZ-vzVfIN7ySKpWQOWIFHPnQSxu_n2AY7OrM-ds1lg1i4ZRSEOoI1XhClS4TEyGmJuDdz99UJRUuc0SA_yhzDyuzPz5zXeRnxqcSQpzHZ86Mo0EPupgtTta5a4noE3bqx4yhZmUVBeQ75cUY5ZeAxj2sk7zBr4sCfWQ1FnWLZ_oM-oZLj0ThQgvJvONWjMVePQg
+Token: ENTER_JWT_TOKEN
 ```
-#### 3. Post Request with Bearer Token to Mock data by using Kafka producer.
+#### 3. Mock data using Kafka producer.
 
 ```bash
-Post http://localhost:8080/api/transactions/mock
+POST http://localhost:8080/api/transactions/mock
 
 Bearer Token
 Token: ENTER_JWT_TOKEN
 ```
 
-User:
+#### 4. Test GET Request to retrieve the transactions for March 2023
+
+```bash
+GET http://localhost:8080/api/transactions/03/2023
+
+Bearer Token
+Token: ENTER_JWT_TOKEN
+```
+
+User information:
 
 | UserName      | Password      | Identity Key| Account Iban |
 | ------------- |:-------------:| :--------:  | :--------:   |
