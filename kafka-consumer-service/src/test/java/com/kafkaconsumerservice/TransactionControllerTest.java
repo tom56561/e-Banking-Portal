@@ -24,7 +24,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -133,10 +132,7 @@ public class TransactionControllerTest {
                 )
         );
 
-        int pageNumber = 0;
-        int pageSize = 5;
-        long totalElements = 2;
-        int totalPages = 1;
+
         Pageable pageable = PageRequest.of(0,5);
 
         int start = (int) pageable.getOffset();
