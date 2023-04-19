@@ -36,3 +36,14 @@ services:
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
     depends_on:
       - zoo1
+      
+  ebanking-portal:
+    image: eddie56/ebanking-portal:latest
+    hostname: ebanking-portal
+    container_name: ebanking-portal
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_BROKER_URL: kafka1:19092
+
+
