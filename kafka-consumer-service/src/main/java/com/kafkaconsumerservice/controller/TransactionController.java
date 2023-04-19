@@ -68,11 +68,15 @@ public class TransactionController {
             @Parameter(description = "Month for which transactions are fetched")
             @PathVariable(value = "month") int month,
             @Parameter(description = "Year for which transactions are fetched")
-            @PathVariable(value = "year") int year) {
+            @PathVariable(value = "year") int year,
+            @Parameter(description = "Number of items per page")
+            @RequestParam(value = "size", defaultValue = "5") int size,
+            @Parameter(description = "Page number for pagination")
+            @RequestParam(value = "page", defaultValue = "0") int page) {
 
         String identityKey = ((JwtAuthenticationToken) authentication).getToken().getClaim("identity_key");
 
-        PagedResponse<Transaction> transactions = transactionService.getTransactions(identityKey, month, year, 5);
+        PagedResponse<Transaction> transactions = transactionService.getTransactions(identityKey, month, year, size, page);
         return ResponseEntity.ok(transactions);
     }
 }

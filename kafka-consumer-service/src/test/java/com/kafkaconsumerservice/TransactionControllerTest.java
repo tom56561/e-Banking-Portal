@@ -140,7 +140,7 @@ public class TransactionControllerTest {
         Page<Transaction> transactionPage = new PageImpl<>(transactions.subList(start, end), pageable, transactions.size());
 
         PagedResponse<Transaction> pagedResponse = new PagedResponse<>(transactionPage.getContent(), transactionPage.getNumber(), transactionPage.getSize(), transactionPage.getTotalElements(), transactionPage.getTotalPages(), BigDecimal.ZERO, BigDecimal.ZERO);
-        when(transactionService.getTransactions(anyString(), eq(month), eq(year), anyInt())).thenReturn(pagedResponse);
+        when(transactionService.getTransactions(anyString(), eq(month), eq(year), anyInt(), anyInt())).thenReturn(pagedResponse);
 
         mockMvc.perform(get("/api/transactions/{month}/{year}", month, year)
                         .contentType(MediaType.APPLICATION_JSON))
